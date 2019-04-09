@@ -55,16 +55,16 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col justify-content-md-center">
-            <div class="row">
-                <div class="col"><input class="input" id="edtTxt_playername"></div>
+    <div class="row justify-content-md-center mt-3">
+        <div class="col col-md-auto">
+            <div class="row justify-content-md-center mb-1">
+                <div class="col col-md-auto"><input class="input" id="edtTxt_playername"></div>
             </div>
-            <div class="row">
-                <div class="col">
+            <div class=" row justify-content-md-center">
+                <div class="col col-md-auto">
                     <button class="btn btn-primary" id="butInvia">Submit</button>
                 </div>
-                <div class="col">
+                <div class="col col-md-auto">
                     <button class="btn btn-danger" id="butReset" onclick="reloadPage()">Resetta</button>
                 </div>
             </div>
@@ -117,6 +117,10 @@
     const gameCanvas = document.getElementById("gameCanvas");
     // Return a two dimensional drawing context
     const ctx = gameCanvas.getContext("2d");
+
+    // nascondi roba leaderboard
+    leaderboardRobeVisibility("none");
+
     // Start game
     main();
     // Create the first food location
@@ -130,7 +134,10 @@
      */
     function main() {
         // If the game ended return early to stop game
-        if (didGameEnd()) return;
+        if (didGameEnd()) {
+            leaderboardRobeVisibility("visible");
+            return;
+        }
         setTimeout(function onTick() {
             changingDirection = false;
             clearCanvas();
@@ -348,6 +355,40 @@
             dy = 10;
         }
     }
+
+    function leaderboardRobeVisibility(valore) {
+        const butInvia = document.getElementById("butInvia");
+        const butReload = document.getElementById("butReset");
+        const playername_input = document.getElementById("edtTxt_playername");
+
+        switch (valore) {
+            case "visible":
+                butInvia.style.visibility = "visible";
+                butReload.style.visibility = "visible";
+                playername_input.style.visibility = "visible";
+                butInvia.style.display = "inherit";
+                butReload.style.display = "inherit";
+                playername_input.style.display = "inherit";
+                break;
+            case "hidden":
+                butInvia.style.visibility = "hidden";
+                butReload.style.visibility = "hidden";
+                playername_input.style.visibility = "hidden";
+                butInvia.style.display = "inhert";
+                butReload.style.display = "inherit";
+                playername_input.style.display = "inherit";
+                break;
+            case "none":
+                butInvia.style.display = "none";
+                butReload.style.display = "none";
+                playername_input.style.display = "none";
+                break;
+            default:
+                console.error("errore nella scelta dell'atributo di visibility or dispplay");
+                break;
+        }
+    }
+
 </script>
 <script>
     function reloadPage() {
