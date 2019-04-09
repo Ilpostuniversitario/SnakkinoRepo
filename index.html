@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -10,13 +9,12 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
 
 </head>
-
 <body>
 
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col- col-md-auto">
-            <h3>Snakkino Score</h3> <h4 id="score">0</h4>
+            <h3>Snakkino Score</h3> <h4 id="score">0 <span id="score_status"></span></h4>
         </div>
     </div>
     <div class="row justify-content-md-center">
@@ -28,46 +26,47 @@
             </canvas>
         </div>
     </div>
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-center">
         <div class="col-">
-            <div class="row justify-content-md-center">
-                <div class="col col-md-auto mb-2">
+            <div class="row justify-content-center">
+                <div class="col col-md-auto mb-3">
                     <img alt="Arrow up" class="mx-auto d-block" height="50" onclick="onUpArrowClick()" src="arrowUp.png"
                          width="50">
                 </div>
             </div>
-            <div class="row justify-content-md-center">
+            <div class="row justify-content-center">
                 <div class="col col-md-auto">
                     <img alt="Arrow left" class="mx-auto d-block" height="50" onclick="onLeftArrowClick()"
-                         src="arrowLeft.png"
-                         width="50">
+                         src="arrowLeft.png" width="50">
                 </div>
                 <div class="col col-md-auto">
                     <img alt="Arrow down" class="mx-auto d-block" height="50" onclick="onDownArrowClick()"
-                         src="arrowDown.png"
-                         width="50">
+                         src="arrowDown.png" width="50">
                 </div>
                 <div class="col col-md-auto">
                     <img alt="Arrow right" class="mx-auto d-block" height="50" onclick="onRightArrowClick()"
-                         src="arrowRight.png"
-                         width="50">
+                         src="arrowRight.png" width="50">
                 </div>
             </div>
         </div>
     </div>
-    <div class="row justify-content-md-center mt-3">
+    <div class="row justify-content-center mt-3">
         <div class="col col-md-auto">
-            <div class="row justify-content-md-center mb-1">
-                <div class="col col-md-auto"><input class="input" id="edtTxt_playername"></div>
-            </div>
-            <div class=" row justify-content-md-center">
-                <div class="col col-md-auto">
-                    <button class="btn btn-primary" id="butInvia">Submit</button>
+            <div class="input-group mb-3">
+                <input aria-describedby="butInvia" aria-label="Inserisci nickname" class="form-control"
+                       id="edtTxt_playername"
+                       placeholder="Nickname" type="text">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" id="butInvia" onclick="onButSubmitClick()" type="button">
+                        Submit
+                    </button>
                 </div>
-                <div class="col col-md-auto">
-                    <button class="btn btn-danger" id="butReset" onclick="reloadPage()">Resetta</button>
-                </div>
             </div>
+        </div>
+    </div>
+    <div class=" row justify-content-center">
+        <div class="col col-md-auto">
+            <button class="btn btn-danger" id="butReset" onclick="reloadPage()">Reload</button>
         </div>
     </div>
 </div>
@@ -394,6 +393,20 @@
     function reloadPage() {
         location.reload();
     }
-</script>
 
+    function onButSubmitClick(event) {
+        const playername_input = document.getElementById("edtTxt_playername");
+        const score_text = document.getElementById("score_status");
+        var nomePlayer = playername_input.value;
+        var score = score_text.innerText;
+
+        if (typeof (WebAppInterface) != 'undefined') {
+            WebAppInterface.sendScore(nomePlayer, score);
+            score_text.innerHTML = "<span class=\"badge badge-success\">Sending score</span>";
+        } else {
+            score_text.innerHTML = "<span class=\"badge badge-warning\">Error sending score</span>";
+        }
+
+    }
+</script>
 </html>
