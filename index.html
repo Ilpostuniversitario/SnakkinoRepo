@@ -14,7 +14,7 @@
 <div class="container">
     <div class="row justify-content-md-center">
         <div class="col- col-md-auto">
-            <h3>Snakkino Score</h3> <h4 id="score">0 <span id="score_status"></span></h4>
+            <h4>Snakkino, score: <span id="score">0<span id="score_status"></span></span></h4>
         </div>
     </div>
     <div class="row justify-content-md-center">
@@ -134,6 +134,9 @@
     function main() {
         // If the game ended return early to stop game
         if (didGameEnd()) {
+            // Play audio
+            var audio = new Audio('game over.mp3');
+            audio.play();
             leaderboardRobeVisibility("visible");
             return;
         }
@@ -185,6 +188,9 @@
         snake.unshift(head);
         const didEatFood = snake[0].x === foodX && snake[0].y === foodY;
         if (didEatFood) {
+            // Play audio
+            var audio = new Audio('blip.mp3');
+            audio.play();
             // Increase score
             score += 10;
             // Display score on screen
@@ -398,7 +404,7 @@
         const playername_input = document.getElementById("edtTxt_playername");
         const score_text = document.getElementById("score_status");
         var nomePlayer = playername_input.value;
-        var score = score_text.innerText;
+        var score = score_text.innerHTML;
 
         if (typeof (WebAppInterface) != 'undefined') {
             WebAppInterface.sendScore(nomePlayer, score);
