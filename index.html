@@ -69,6 +69,31 @@
             <button class="btn btn-danger" id="butReset" onclick="reloadPage()">Reload</button>
         </div>
     </div>
+    <span id="pulsantieraDifficoulties">
+        <div class="row justify-content-center">
+            <div class="col">
+                <p class="font-weight-bold">Scegli la difficoltà</p>
+            </div>
+        </div>
+        <div class=" row justify-content-center">
+            <div class="col ">
+                <button class="btn btn-info mx-auto d-block" onclick="onbutEasyClick()"
+                        type="button">Easy Peasy</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-info mx-auto d-block" onclick="onbutNormalClick()" type="button">Normal</button>
+            </div>
+                <div class="w-100 mb-2"></div>
+            <div class="col">
+                <button class="btn btn-info mx-auto d-block" onclick="onbutHardClick()"
+                        type="button">Non semplice</button>
+            </div>
+            <div class="col">
+                <button class="btn btn-info mx-auto d-block" onclick="onbutSuperClick()"
+                        type="button">Ma è banale! cit.</button>
+            </div>
+        </div>
+    </span>
 </div>
 
 
@@ -86,7 +111,7 @@
 
 <!-- L'algoritmo -->
 <script>
-    const GAME_SPEED = 100;
+    let GAME_SPEED = 100;
     const CANVAS_BORDER_COLOUR = 'black';
     const CANVAS_BACKGROUND_COLOUR = "white";
     const SNAKE_COLOUR = 'lightgreen';
@@ -121,11 +146,14 @@
     leaderboardRobeVisibility("none");
 
     // Start game
-    main();
-    // Create the first food location
-    createFood();
-    // Call changeDirection whenever a key is pressed
-    document.addEventListener("keydown", changeDirection);
+    function startGame() {
+        main();
+        // Create the first food location
+        createFood();
+        // Call changeDirection whenever a key is pressed
+        document.addEventListener("keydown", changeDirection);
+
+    }
 
     /**
      * Main function of the game
@@ -192,7 +220,7 @@
             var audio = new Audio('blip.mp3');
             audio.play();
             // Increase score
-            score += 10;
+            score += 43;
             // Display score on screen
             document.getElementById('score').innerHTML = score;
             // Generate new food location
@@ -394,6 +422,30 @@
         }
     }
 
+    function onbutEasyClick(event) {
+        GAME_SPEED = 300;
+        nascondiPulsantieraDifficoulties();
+        startGame();
+    }
+
+    function onbutNormalClick(event) {
+        GAME_SPEED = 100;
+        nascondiPulsantieraDifficoulties();
+        startGame();
+    }
+
+    function onbutHardClick(event) {
+        GAME_SPEED = 44;
+        nascondiPulsantieraDifficoulties();
+        startGame();
+    }
+
+    function onbutSuperClick(event) {
+        GAME_SPEED = 31;
+        nascondiPulsantieraDifficoulties();
+        startGame();
+    }
+
 </script>
 <script>
     function reloadPage() {
@@ -413,6 +465,11 @@
             score_text.innerHTML = "<span class=\"badge badge-warning\">Error sending score</span>";
         }
 
+    }
+
+    function nascondiPulsantieraDifficoulties() {
+        const diff = document.getElementById("pulsantieraDifficoulties");
+        diff.style.display = "none";
     }
 </script>
 </html>
