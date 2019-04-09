@@ -112,6 +112,7 @@
 <!-- L'algoritmo -->
 <script>
     let GAME_SPEED = 100;
+    let SCORE_MULTIPLIER = 1;
     const CANVAS_BORDER_COLOUR = 'black';
     const CANVAS_BACKGROUND_COLOUR = "white";
     const SNAKE_COLOUR = 'lightgreen';
@@ -220,7 +221,7 @@
             var audio = new Audio('blip.mp3');
             audio.play();
             // Increase score
-            score += 43;
+            score += Math.round(43 * SCORE_MULTIPLIER);
             // Display score on screen
             document.getElementById('score').innerHTML = score;
             // Generate new food location
@@ -424,24 +425,28 @@
 
     function onbutEasyClick(event) {
         GAME_SPEED = 300;
+        SCORE_MULTIPLIER = 0.83;
         nascondiPulsantieraDifficoulties();
         startGame();
     }
 
     function onbutNormalClick(event) {
         GAME_SPEED = 100;
+        SCORE_MULTIPLIER = 1.07;
         nascondiPulsantieraDifficoulties();
         startGame();
     }
 
     function onbutHardClick(event) {
         GAME_SPEED = 44;
+        SCORE_MULTIPLIER = 1.43;
         nascondiPulsantieraDifficoulties();
         startGame();
     }
 
     function onbutSuperClick(event) {
         GAME_SPEED = 31;
+        SCORE_MULTIPLIER = 1.73;
         nascondiPulsantieraDifficoulties();
         startGame();
     }
